@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0r1slcn42nqk"]
+[gd_scene load_steps=5 format=3 uid="uid://b0r1slcn42nqk"]
 
 [ext_resource type="Script" uid="uid://2gxg5dinbode" path="res://Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://d200v2viim5nq" path="res://bullet.tscn" id="2_onrkg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4flbx")
@@ -11,5 +13,8 @@ _bullet = ExtResource("2_onrkg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_onrkg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_onrkg")
 
 [node name="Camera3D" type="Camera3D" parent="."]

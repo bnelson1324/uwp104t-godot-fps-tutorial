@@ -6,6 +6,8 @@ public partial class Player : CharacterBody3D
 {
     private const float Sensitivity = 0.002f;
 
+    public static Player PlayerInstance;
+
     [Export] private float _moveSpeed = 32;
     [Export] private float _jumpSpeed = 12;
     [Export] private PackedScene _bullet;
@@ -16,6 +18,7 @@ public partial class Player : CharacterBody3D
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
         _camera = GetNode<Camera3D>("Camera3D");
+        PlayerInstance = this;
     }
 
     public override void _PhysicsProcess(double deltaTime)
@@ -30,7 +33,7 @@ public partial class Player : CharacterBody3D
             Velocity = Velocity with { Y = 0 } + Vector3.Up * _jumpSpeed;
 
         // handle gravity
-        Velocity += Vector3.Down * 9.8f * (float)deltaTime;
+        Velocity += Vector3.Down * 24f * (float)deltaTime;
 
         // move
         MoveAndSlide();
@@ -39,8 +42,7 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("shoot"))
         {
             Bullet bulletInstance = (Bullet)_bullet.Instantiate();
-            GetParent().AddChild(bulletInstance);
-            bulletInstance.Initialize(_camera.GlobalPosition, -_camera.Basis.Z);
+            bulletInstance.Initialize(GetParent(), _camera.GlobalPosition, -_camera.Basis.Z, true);
         }
     }
 

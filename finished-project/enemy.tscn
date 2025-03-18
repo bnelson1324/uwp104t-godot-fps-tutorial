@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfegari5dw2ek"]
+
+[ext_resource type="Script" uid="uid://cvc10jxweliy8" path="res://Enemy.cs" id="1_7k104"]
+[ext_resource type="PackedScene" uid="uid://d200v2viim5nq" path="res://bullet.tscn" id="2_4gyqm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_7k104")
+_bullet = ExtResource("2_4gyqm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_onrkg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_onrkg")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
