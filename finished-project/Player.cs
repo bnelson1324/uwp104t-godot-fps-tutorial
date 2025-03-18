@@ -8,6 +8,7 @@ public partial class Player : CharacterBody3D
 
     [Export] private float _moveSpeed = 32;
     [Export] private float _jumpSpeed = 12;
+    [Export] private PackedScene _bullet;
 
     private Camera3D _camera;
 
@@ -34,10 +35,12 @@ public partial class Player : CharacterBody3D
         // move
         MoveAndSlide();
 
-
         // handle shooting
-        if (Input.IsActionPressed("shoot"))
+        if (Input.IsActionJustPressed("shoot"))
         {
+            Bullet bulletInstance = (Bullet)_bullet.Instantiate();
+            GetParent().AddChild(bulletInstance);
+            bulletInstance.Initialize(_camera.GlobalPosition, -_camera.Basis.Z);
         }
     }
 
